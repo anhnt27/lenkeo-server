@@ -17,6 +17,15 @@ $app->get('/', function () use ($app) {
 
 $app->post('/auth/login', 'AuthController@loginPost');
 
-$app->get('foo', function () {
-    return 'Hello World';
+$app->get('foo/{id}', function ($id) {
+    info('this foo is callled');
+    return json_encode($id);
 });
+
+$app->get('firebase', 'FirebaseController@fireNotification');
+
+$app->post('registration', 'PlayerController@postRegistration');
+
+// TMP
+$app->get('/login/{email}/{name}', 'AuthController@login');
+$app->get('/registration/{email}/{registrationId}', 'PlayerController@registration');

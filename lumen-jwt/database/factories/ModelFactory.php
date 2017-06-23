@@ -17,3 +17,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->email,
     ];
 });
+
+$factory->define(App\Player::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'email' => $faker->unique()->email,
+    ];
+});

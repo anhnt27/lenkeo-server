@@ -67,6 +67,10 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
 ]);
 
+$app->middleware([
+    App\Http\Middleware\Cors::class
+]);
+
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers
@@ -80,6 +84,8 @@ $app->routeMiddleware([
 
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\RepositoryServiceProvider::class);
+$app->register(App\Providers\CatchAllOptionsRequestsProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
