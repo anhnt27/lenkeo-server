@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
-use App\Player;
+use App\Models\Player;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Repositories\PlayerInterface;

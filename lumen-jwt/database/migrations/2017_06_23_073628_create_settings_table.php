@@ -16,16 +16,14 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
-            
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::table('settings', function ($table) {
+                
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

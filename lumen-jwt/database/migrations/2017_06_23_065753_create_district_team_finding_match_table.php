@@ -18,11 +18,6 @@ class CreateDistrictTeamFindingMatchTable extends Migration
             $table->unsignedInteger('team_id');
             $table->unsignedInteger('district_id');
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::table('district_team_finding_match', function ($table) {
             $table->foreign('district_id')
                 ->references('id')->on('districts')
                 ->onUpdate('NO ACTION')
@@ -32,6 +27,11 @@ class CreateDistrictTeamFindingMatchTable extends Migration
                 ->references('id')->on('teams')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 

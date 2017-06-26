@@ -13,17 +13,12 @@ class CreateMatchPlayerTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_team', function (Blueprint $table) {
+        Schema::create('match_player', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('match_id');
             $table->unsignedInteger('player_id');
             $table->tinyInteger('confirm_status')->nullable();
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::table('player_team', function ($table) {
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
@@ -33,6 +28,11 @@ class CreateMatchPlayerTable extends Migration
                 ->references('id')->on('matchs')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 

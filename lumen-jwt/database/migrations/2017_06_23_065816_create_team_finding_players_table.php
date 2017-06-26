@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFindingPlayersTable extends Migration
+class CreateTeamFindingPlayersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,11 +21,6 @@ class CreateFindingPlayersTable extends Migration
             $table->unsignedInteger('type_id'); 
             $table->unsignedInteger('position_id'); 
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::table('team_finding_players', function ($table) {
             $table->foreign('team_id')
                 ->references('id')->on('teams')
                 ->onUpdate('NO ACTION')
@@ -38,6 +33,11 @@ class CreateFindingPlayersTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 

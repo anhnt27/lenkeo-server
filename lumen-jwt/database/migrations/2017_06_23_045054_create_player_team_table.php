@@ -18,10 +18,6 @@ class CreatePlayerTeamTable extends Migration
             $table->unsignedInteger('player_id');
             $table->unsignedInteger('team_id');
 
-            $table->softDeletes();
-        });
-
-        Schema::table('player_team', function ($table) {
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
@@ -31,6 +27,9 @@ class CreatePlayerTeamTable extends Migration
                 ->references('id')->on('teams')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->softDeletes();
+
         });
     }
 

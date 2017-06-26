@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateMatchsTable extends Migration
+class CreateNotificationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,21 @@ class CreateMatchsTable extends Migration
      */
     public function up()
     {
-        Schema::create('matchs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('team_id');
-            $table->string('stadium_name');
-            $table->string('note')->nullable();
-            $table->time('from');
-            $table->time('to');
-            $table->date('date');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->unsignedInteger('player_id');
+            $table->string('type');
+            $table->morphs('notifiable');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
 
-            $table->foreign('team_id')
-                ->references('id')->on('teams')
+            $table->foreign('player_id')
+                ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-            
             $table->softDeletes();
         });
     }
@@ -41,6 +39,6 @@ class CreateMatchsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('matchs');
+        Schema::dropIfExists('notifications');
     }
 }

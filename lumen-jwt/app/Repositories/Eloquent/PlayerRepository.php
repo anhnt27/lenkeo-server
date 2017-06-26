@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Player;
+use App\Models\Player;
 use App\Repositories\PlayerInterface;
 
 class PlayerRepository extends AbstractRepository implements PlayerInterface

@@ -20,11 +20,6 @@ class CreatePlayerFindingMatchsTable extends Migration
             $table->unsignedInteger('type_id'); 
             $table->unsignedInteger('position_id'); 
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::table('player_finding_matchs', function ($table) {
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
@@ -37,6 +32,11 @@ class CreatePlayerFindingMatchsTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 

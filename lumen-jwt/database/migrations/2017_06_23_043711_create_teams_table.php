@@ -17,10 +17,12 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('phone_number')->nullable()->unique();
-            $table->boolean('is_finding_match')->default(false);
+            
             $table->boolean('is_finding_player')->default(false);
 
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
             $table->softDeletes();
         });
     }

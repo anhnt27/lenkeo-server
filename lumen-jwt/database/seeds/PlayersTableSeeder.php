@@ -11,15 +11,15 @@ class PlayersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Player::class)->create([
+        factory(App\Models\Player::class)->create([
             'email' => 'player1@lenkeo.com',
         ]);
 
-        factory(App\Player::class)->create([
+        factory(App\Models\Player::class)->create([
             'email' => 'player2@lenkeo.com',
         ]);
 
-        factory(App\Player::class)->create([
+        factory(App\Models\Player::class)->create([
             'email' => 'player3@lenkeo.com',
         ]);
     }

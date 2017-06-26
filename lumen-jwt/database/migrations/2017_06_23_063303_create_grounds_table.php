@@ -20,11 +20,6 @@ class CreateGroundsTable extends Migration
             $table->string('name');
             $table->integer('price_per_hour')->nullable();
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::create('grounds', function (Blueprint $table) {
             $table->foreign('stadium_id')
                 ->references('id')
                 ->on('stadiums')
@@ -35,7 +30,11 @@ class CreateGroundsTable extends Migration
                 ->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 

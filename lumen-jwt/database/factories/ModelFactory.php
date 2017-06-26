@@ -18,9 +18,33 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Player::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Player::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->email,
     ];
 });
+
+$factory->define(App\Models\City::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
+
+$factory->define(App\Models\District::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
+
+$factory->define(App\Models\Stadium::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+    ];
+});
+
+// $factory->define(App\Models\District::class, function (Faker\Generator $faker) {
+//     return [
+//         'name' => $faker->name,
+//     ];
+// });

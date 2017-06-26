@@ -22,16 +22,16 @@ class CreateStadiumsTable extends Migration
             $table->integer('number_of_ground')->nullable();
             $table->integer('price_per_hour')->nullable();
 
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
-        Schema::create('stadiums', function (Blueprint $table) {
             $table->foreign('district_id')
                 ->references('id')
                 ->on('districts')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+                
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            
+            $table->softDeletes();
         });
     }
 
