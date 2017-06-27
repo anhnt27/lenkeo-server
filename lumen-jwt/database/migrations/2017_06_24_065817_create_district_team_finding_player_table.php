@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStadiumsTable extends Migration
+class CreateDistrictTeamFindingPlayerTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,18 @@ class CreateStadiumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stadiums', function (Blueprint $table) {
+        Schema::create('district_team_finding_player', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('team_finding_player_id');
             $table->unsignedInteger('district_id');
-            $table->string('name');
-            $table->string('phone_number')->nullable()->unique();
-            $table->string('address')->nullable();
-            $table->integer('number_of_ground')->nullable();
-            $table->integer('price_per_hour')->nullable();
-
-            $table->unsignedInteger('ground_type_id')->nullable();
 
             $table->foreign('district_id')
-                ->references('id')
-                ->on('districts')
+                ->references('id')->on('districts')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('ground_type_id')
-                ->references('id')->on('properties')
+
+            $table->foreign('team_finding_player_id')
+                ->references('id')->on('team_finding_players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -48,7 +42,6 @@ class CreateStadiumsTable extends Migration
      */
     public function down()
     {
-        
-        Schema::drop('stadiums');
+        Schema::create('district_team_finding_player');
     }
 }

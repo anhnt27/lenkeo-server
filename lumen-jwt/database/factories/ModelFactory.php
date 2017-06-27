@@ -43,8 +43,9 @@ $factory->define(App\Models\Stadium::class, function (Faker\Generator $faker) {
     ];
 });
 
-// $factory->define(App\Models\District::class, function (Faker\Generator $faker) {
-//     return [
-//         'name' => $faker->name,
-//     ];
-// });
+$factory->define(App\Models\Team::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'phone_number' => $faker->phoneNumber
+    ];
+});

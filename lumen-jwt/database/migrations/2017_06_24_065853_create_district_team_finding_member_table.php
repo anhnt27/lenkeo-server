@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDistrictTeamFindingPlayerTable extends Migration
+class CreateDistrictTeamFindingMemberTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDistrictTeamFindingPlayerTable extends Migration
      */
     public function up()
     {
-        Schema::create('district_team_finding_player', function (Blueprint $table) {
+        Schema::create('district_team_finding_member', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('team_finding_member_id');
             $table->unsignedInteger('district_id');
 
             $table->foreign('district_id')
@@ -23,8 +23,8 @@ class CreateDistrictTeamFindingPlayerTable extends Migration
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
-            $table->foreign('team_id')
-                ->references('id')->on('teams')
+            $table->foreign('team_finding_member_id')
+                ->references('id')->on('team_finding_members')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -42,6 +42,6 @@ class CreateDistrictTeamFindingPlayerTable extends Migration
      */
     public function down()
     {
-        Schema::create('district_team_finding_player');
+        Schema::drop('district_team_finding_member');
     }
 }

@@ -15,7 +15,7 @@ class CreateDistrictTeamFindingMatchTable extends Migration
     {
         Schema::create('district_team_finding_match', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('team_id');
+            $table->unsignedInteger('team_finding_match_id');
             $table->unsignedInteger('district_id');
 
             $table->foreign('district_id')
@@ -23,8 +23,8 @@ class CreateDistrictTeamFindingMatchTable extends Migration
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
-            $table->foreign('team_id')
-                ->references('id')->on('teams')
+            $table->foreign('team_finding_match_id')
+                ->references('id')->on('team_finding_matchs')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 

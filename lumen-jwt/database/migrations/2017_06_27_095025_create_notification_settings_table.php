@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStadiumsTable extends Migration
+class CreateNotificationSettingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,23 +13,23 @@ class CreateStadiumsTable extends Migration
      */
     public function up()
     {
-        Schema::create('stadiums', function (Blueprint $table) {
+        Schema::create('notification_settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('district_id');
-            $table->string('name');
-            $table->string('phone_number')->nullable()->unique();
-            $table->string('address')->nullable();
-            $table->integer('number_of_ground')->nullable();
-            $table->integer('price_per_hour')->nullable();
+            $table->unsignedInteger('player_id');
+            $table->tinyInteger('type'); // 
+                // 1: team finding match  / filter: district,  level
+                // 2: team finding player / filter: district, position, level
+                // 3: player finding match / filter: district, position, level
+                // 4: team finding member / filter: district, position, level
+                // 5: player finding team / filter: district, position, level
 
-            $table->unsignedInteger('ground_type_id')->nullable();
+            $table->unsignedInteger('position_id')->nullable();
 
-            $table->foreign('district_id')
-                ->references('id')
-                ->on('districts')
+            $table->foreign('player_id')
+                ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('ground_type_id')
+            $table->foreign('position_id')
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
@@ -48,7 +48,6 @@ class CreateStadiumsTable extends Migration
      */
     public function down()
     {
-        
-        Schema::drop('stadiums');
+        Schema::create('notification_settings');
     }
 }

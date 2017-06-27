@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamFindingPlayersTable extends Migration
+class CreatePlayerFindingTeamsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,18 @@ class CreateTeamFindingPlayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_finding_players', function (Blueprint $table) {
+        Schema::create('player_finding_teams', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
-            $table->string('address');
             $table->string('note')->nullable();
             $table->unsignedInteger('ground_type_id')->nullable(); 
             $table->unsignedInteger('position_id')->nullable(); 
             $table->unsignedInteger('level_id')->nullable(); 
 
-            $table->string('time')->nullable();
-            $table->date('date')->nullable();
             $table->string('phone_number')->nullable();
-
-            $table->tinyInteger('needing_number')->default(1);
-
-            $table->boolean('is_full')->default(false);
-            $table->boolean('is_finding_member')->default(false);
-
+            $table->string('time')->nullable();
             $table->string('message')->nullable();
+
             $table->string('fb_name')->nullable();
             $table->string('fb_page_to_find')->nullable();
 
@@ -66,6 +59,6 @@ class CreateTeamFindingPlayersTable extends Migration
      */
     public function down()
     {
-        Schema::create('team_finding_players');
+        Schema::create('player_finding_teams');
     }
 }

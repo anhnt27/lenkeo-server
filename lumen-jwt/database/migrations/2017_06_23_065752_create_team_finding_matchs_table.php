@@ -16,11 +16,21 @@ class CreateTeamFindingMatchsTable extends Migration
         Schema::create('team_finding_matchs', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('team_id');
-            $table->boolean('is_booked');
-            $table->string('stadium_name');
-            $table->string('note')->nullable();
-            $table->unsignedInteger('level_id'); 
-            $table->unsignedInteger('type_id'); 
+            $table->boolean('is_booked')->default(false);
+            $table->string('stadium_name')->nullable();
+            $table->unsignedInteger('level_id')->nullable(); 
+
+            $table->string('address')->nullable();
+            $table->unsignedInteger('ground_type_id')->nullable(); 
+            $table->unsignedInteger('ground_id')->nullable(); 
+
+            $table->string('time')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->date('date')->nullable();
+
+            $table->string('message')->nullable();
+            $table->string('fb_name')->nullable();
+            $table->string('fb_page_to_find')->nullable();
 
             $table->foreign('team_id')
                 ->references('id')->on('teams')
@@ -30,8 +40,12 @@ class CreateTeamFindingMatchsTable extends Migration
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('type_id')
+            $table->foreign('ground_type_id')
                 ->references('id')->on('properties')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('ground_id')
+                ->references('id')->on('grounds')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 

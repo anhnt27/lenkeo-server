@@ -13,9 +13,9 @@ class CreateDistrictPlayerFindingMatchTable extends Migration
      */
     public function up()
     {
-        Schema::create('district_player_finding_player', function (Blueprint $table) {
+        Schema::create('district_player_finding_match', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('player_id');
+            $table->unsignedInteger('player_finding_match_id');
             $table->unsignedInteger('district_id');
 
             $table->foreign('district_id')
@@ -23,8 +23,8 @@ class CreateDistrictPlayerFindingMatchTable extends Migration
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
-            $table->foreign('player_id')
-                ->references('id')->on('players')
+            $table->foreign('player_finding_match_id')
+                ->references('id')->on('player_finding_matchs')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -42,6 +42,6 @@ class CreateDistrictPlayerFindingMatchTable extends Migration
      */
     public function down()
     {
-        Schema::create('district_player_finding_player');
+        Schema::create('district_player_finding_match');
     }
 }

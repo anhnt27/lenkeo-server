@@ -16,6 +16,12 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
+
+            $table->boolean('is_receive_team_finding_match')->default(false);
+            $table->boolean('is_receive_team_finding_player')->default(false);
+            $table->boolean('is_receive_team_finding_member')->default(false);
+            $table->boolean('is_receive_player_finding_match')->default(false);
+            $table->boolean('is_receive_player_finding_team')->default(false);
                 
             $table->foreign('player_id')
                 ->references('id')->on('players')

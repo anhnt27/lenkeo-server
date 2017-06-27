@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Stadium extends Model
+class Property extends Model
 {
 
     /**
@@ -16,4 +16,5 @@ class Stadium extends Model
         'name',
     ];
 
+    public $timestamps = false;
 }

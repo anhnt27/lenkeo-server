@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlayerFindingMatchsTable extends Migration
+class CreateTeamFindingMembersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,33 @@ class CreatePlayerFindingMatchsTable extends Migration
      */
     public function up()
     {
-        Schema::create('player_finding_matchs', function (Blueprint $table) {
+        Schema::create('team_finding_members', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
-            $table->string('note')->nullable();
-            $table->unsignedInteger('type_id'); 
-            $table->unsignedInteger('position_id'); 
+            $table->unsignedInteger('ground_type_id')->nullable(); 
+            $table->unsignedInteger('position_id')->nullable(); 
+            $table->unsignedInteger('level_id')->nullable(); 
+
+            $table->string('phone_number')->nullable();
+            $table->string('time')->nullable();
+            $table->string('message')->nullable();
+
+            $table->string('fb_name')->nullable();
+            $table->string('fb_page_to_find')->nullable();
 
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('type_id')
+            $table->foreign('ground_type_id')
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
             $table->foreign('position_id')
+                ->references('id')->on('properties')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('level_id')
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
@@ -47,6 +58,6 @@ class CreatePlayerFindingMatchsTable extends Migration
      */
     public function down()
     {
-        Schema::create('player_finding_matchs');
+        Schema::create('team_finding_members');
     }
 }
