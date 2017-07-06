@@ -45,6 +45,6 @@ class CreateJoinsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('joins');
+        Schema::dropIfExists('joins');
     }
 }

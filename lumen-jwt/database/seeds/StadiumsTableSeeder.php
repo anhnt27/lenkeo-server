@@ -17,7 +17,8 @@ class StadiumsTableSeeder extends Seeder
         $filePath = database_path('seeds/data/Stadiums.xls');
 
         $hcmStadiumsSheet = 0;
-        $cityName = "TP HCM";
+        $cityName = "Sài Gòn";
+        
 
         $city = \App\Models\City::where('name', $cityName)->first();
         $cityId = $city->id;
@@ -28,6 +29,7 @@ class StadiumsTableSeeder extends Seeder
 
             foreach ($stadiums as $stadium) {
                 $district = \App\Models\District::where('name', $stadium->district)->where('city_id', $cityId)->first();
+                if(! $district) continue;
                 DB::table('stadiums')->insertGetId([
                     'name'             => $stadium->name,
                     'phone_number'     => $stadium->phone_number,

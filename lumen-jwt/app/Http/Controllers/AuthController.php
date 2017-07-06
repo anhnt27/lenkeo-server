@@ -11,6 +11,9 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Request as GuzzleRequest;
+
 class AuthController extends Controller
 {
     /**
@@ -31,19 +34,39 @@ class AuthController extends Controller
         $this->validate($request, [
             'email'    => 'required|email|max:255',
             'name'     => 'required|string|max:255',
+            'inputToken'     => 'required|string|max:255',
         ]);
 
+
         try {
-            $email  = $request->input('email');
-            
+            $email      = $request->input('email');
+            $inputToken = $request->input('inputToken');
+                
+            $profileResponse = $this->verifyAccessToken($inputToken);
+
+            if($profileResponse->getStatusCode() != 200) {
+                return response()->json(['error_code']);
+            }
+
+            $returnContent = $profileResponse->getBody()->getContents();
+            $profile       = json_decode($returnContent);
+
+            if($profile->email != $email) {
+                return response()->json(['invalid_email']);
+            }
+
             $player = $this->players->findOneByFields(['email' => $email]);
 
+            // new player
             if(!$player) {
                 $name   = $request->input('name');
                 $player = $this->players->save(['email' => $email, 'name' => $name]);
             }
 
+            // return token
             $token = $this->jwt->fromUser($player);
+            info('login called' . $email . '/' . $inputToken);
+            info('return token: '. $token);
 
         } catch (TokenExpiredException $e) {
             return response()->json(['token_expired'], $e->getStatusCode());
@@ -53,7 +76,23 @@ class AuthController extends Controller
             return response()->json(['token_absent' => $e->getMessage()], $e->getStatusCode());
         } 
 
-        return response()->json(compact('token'));
+        return ['token' => $token, 'code' => 200];
+    }
+    public function verifyAccessToken($accessToken)
+    {
+        $fields = 'id,email,first_name,last_name,link,name';
+
+        $client = new Client();
+
+        $res = $client->request('GET', 'https://graph.facebook.com/me?fields=id,email,first_name,last_name,link,name&access_token=EAAaR39aoHBQBALJFGWhnw1KZCZC5WIaKOvQ70PiCk6lhTTqWWlyKTmiFtdyNypjZAGdLfdHiVmWZAMbmhrbKrx3hgNTJxmTmaiT5sceEjZAZCQJhoWukFBK12Ygsfn9v1vteoqwAdutt4b7nAH5vyTLY4lSoYOyhZBER4OLC6ZBowGW1McUXI5JSKJ98d8B2m4XZBtpWKnbvtGKVkQIzSel0bJAgXaZB8mz1YZD');
+        $profileResponse = $client->request('GET', 'https://graph.facebook.com/me', [
+            'query' => [
+                'access_token' => $accessToken,
+                'fields'       => $fields
+            ]
+        ]);
+
+        return $profileResponse;
     }
 
     public function login($email, $name)

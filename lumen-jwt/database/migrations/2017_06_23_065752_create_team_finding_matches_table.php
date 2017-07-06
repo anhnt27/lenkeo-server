@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamFindingMembersTable extends Migration
+class CreateTeamFindingMatchesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,34 +13,45 @@ class CreateTeamFindingMembersTable extends Migration
      */
     public function up()
     {
-        Schema::create('team_finding_members', function (Blueprint $table) {
+        Schema::create('team_finding_matches', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
-            $table->unsignedInteger('ground_type_id')->nullable(); 
-            $table->unsignedInteger('position_id')->nullable(); 
+            $table->unsignedInteger('team_id')->nullable();
+            $table->boolean('is_booked')->default(false);
+            $table->string('stadium_name')->nullable();
             $table->unsignedInteger('level_id')->nullable(); 
 
-            $table->string('phone_number')->nullable();
-            $table->string('time')->nullable();
-            $table->string('message')->nullable();
+            $table->string('address')->nullable();
+            $table->unsignedInteger('ground_type_id')->nullable(); 
+            $table->unsignedInteger('ground_id')->nullable(); 
 
+            $table->string('time')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->date('date')->nullable();
+
+            $table->string('message')->nullable();
             $table->string('fb_name')->nullable();
             $table->string('fb_page_to_find')->nullable();
 
             $table->foreign('player_id')
-                ->references('id')->on('players')
+                ->references('id')
+                ->on('players')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('team_id')
+                ->references('id')->on('teams')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('level_id')
+                ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
             $table->foreign('ground_type_id')
                 ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('position_id')
-                ->references('id')->on('properties')
-                ->onUpdate('NO ACTION')
-                ->onDelete('NO ACTION');
-            $table->foreign('level_id')
-                ->references('id')->on('properties')
+            $table->foreign('ground_id')
+                ->references('id')->on('grounds')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -58,6 +69,6 @@ class CreateTeamFindingMembersTable extends Migration
      */
     public function down()
     {
-        Schema::create('team_finding_members');
+        Schema::dropIfExists('team_finding_matches');
     }
 }

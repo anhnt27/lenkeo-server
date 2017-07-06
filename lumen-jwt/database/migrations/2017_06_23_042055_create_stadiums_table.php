@@ -49,6 +49,6 @@ class CreateStadiumsTable extends Migration
     public function down()
     {
         
-        Schema::drop('stadiums');
+        Schema::dropIfExists('stadiums');
     }
 }

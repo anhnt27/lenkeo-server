@@ -41,6 +41,6 @@ class CreateMatchsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('matchs');
+        Schema::dropIfExists('matchs');
     }
 }

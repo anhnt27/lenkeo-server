@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDistrictTeamFindingMemberTable extends Migration
+class CreatePositionNotificationSettingTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateDistrictTeamFindingMemberTable extends Migration
      */
     public function up()
     {
-        Schema::create('district_team_finding_member', function (Blueprint $table) {
+        Schema::create('position_notification_setting', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('team_finding_member_id');
-            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('notification_setting_id');
+            $table->unsignedInteger('position_id');
 
-            $table->foreign('district_id')
-                ->references('id')->on('districts')
+            $table->foreign('position_id')
+                ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
-            $table->foreign('team_finding_member_id')
-                ->references('id')->on('team_finding_members')
+            $table->foreign('notification_setting_id')
+                ->references('id')->on('notification_settings')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -42,6 +42,6 @@ class CreateDistrictTeamFindingMemberTable extends Migration
      */
     public function down()
     {
-        Schema::drop('district_team_finding_member');
+        Schema::dropIfExists('position_notification_setting');
     }
 }

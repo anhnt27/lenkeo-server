@@ -42,6 +42,6 @@ class CreateDistrictNotificationSettingTable extends Migration
      */
     public function down()
     {
-        Schema::drop('district_notification_setting');
+        Schema::dropIfExists('district_notification_setting');
     }
 }

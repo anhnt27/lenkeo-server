@@ -24,7 +24,7 @@ class CreateDistrictTeamFindingMatchTable extends Migration
                 ->onDelete('NO ACTION');
 
             $table->foreign('team_finding_match_id')
-                ->references('id')->on('team_finding_matchs')
+                ->references('id')->on('team_finding_matches')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 
@@ -42,6 +42,6 @@ class CreateDistrictTeamFindingMatchTable extends Migration
      */
     public function down()
     {
-        Schema::create('district_team_finding_match');
+        Schema::dropIfExists('district_team_finding_match');
     }
 }

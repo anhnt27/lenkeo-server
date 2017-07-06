@@ -158,7 +158,6 @@ abstract class AbstractRepository implements AbstractInterface
         }
 
         $this->populateModelAttribute($model, $data);
-
         /**
          * Save into database
          */

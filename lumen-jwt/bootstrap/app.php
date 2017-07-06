@@ -23,10 +23,13 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->withFacades();
+$app->withFacades(true, [
+    'Illuminate\Support\Facades\Notification' => 'Notification',
+]);
 
 $app->withEloquent();
 
+$app->configure('cors');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -64,11 +67,15 @@ $app->singleton(
 // ]);
 
 $app->routeMiddleware([
-    'auth' => App\Http\Middleware\Authenticate::class,
+    // 'auth'        => App\Http\Middleware\Authenticate::class,
+    'jwt.auth'    => \Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+    'jwt.refresh' => \Tymon\JWTAuth\Middleware\RefreshToken::class,
 ]);
 
+
 $app->middleware([
-    App\Http\Middleware\Cors::class
+    // 'EllipseSynergie\ApiResponse\Laravel\Middleware\ParseInclude',
+    Barryvdh\Cors\HandleCors::class,
 ]);
 
 /*
@@ -85,12 +92,14 @@ $app->middleware([
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\RepositoryServiceProvider::class);
-$app->register(App\Providers\CatchAllOptionsRequestsProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 $app->register(Illuminate\Notifications\NotificationServiceProvider::class);
 $app->register(Maatwebsite\Excel\ExcelServiceProvider::class);
+$app->register(Barryvdh\Cors\ServiceProvider::class);
+
+$app->register('EllipseSynergie\ApiResponse\Laravel\LumenServiceProvider');
 
 
 /*

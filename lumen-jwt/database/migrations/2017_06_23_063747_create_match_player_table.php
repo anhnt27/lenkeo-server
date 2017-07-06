@@ -43,6 +43,6 @@ class CreateMatchPlayerTable extends Migration
      */
     public function down()
     {
-        Schema::create('match_player');
+        Schema::dropIfExists('match_player');
     }
 }

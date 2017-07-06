@@ -22,18 +22,20 @@ class CreateNotificationSettingsTable extends Migration
                 // 3: player finding match / filter: district, position, level
                 // 4: team finding member / filter: district, position, level
                 // 5: player finding team / filter: district, position, level
-
-            $table->unsignedInteger('position_id')->nullable();
+            $table->unsignedInteger('city_id')->nullable();
+            
+            
 
             $table->foreign('player_id')
                 ->references('id')->on('players')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-            $table->foreign('position_id')
-                ->references('id')->on('properties')
+            $table->foreign('city_id')
+                ->references('id')
+                ->on('cities')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
-                
+
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             
@@ -48,6 +50,6 @@ class CreateNotificationSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::create('notification_settings');
+        Schema::dropIfExists('notification_settings');
     }
 }

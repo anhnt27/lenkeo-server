@@ -16,7 +16,6 @@ class CreatePlayerFindingTeamsTable extends Migration
         Schema::create('player_finding_teams', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('player_id');
-            $table->string('note')->nullable();
             $table->unsignedInteger('ground_type_id')->nullable(); 
             $table->unsignedInteger('position_id')->nullable(); 
             $table->unsignedInteger('level_id')->nullable(); 
@@ -59,6 +58,6 @@ class CreatePlayerFindingTeamsTable extends Migration
      */
     public function down()
     {
-        Schema::create('player_finding_teams');
+        Schema::dropIfExists('player_finding_teams');
     }
 }

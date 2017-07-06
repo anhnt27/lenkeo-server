@@ -17,4 +17,14 @@ class District extends Model
     ];
 
     public $timestamps = false;
+
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
+    public function teamFindingPlayers()
+    {
+        return $this->belongsToMany('App\Models\TeamFindingPlayer');
+    }
 }

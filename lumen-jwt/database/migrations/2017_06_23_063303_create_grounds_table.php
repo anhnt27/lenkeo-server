@@ -45,6 +45,6 @@ class CreateGroundsTable extends Migration
      */
     public function down()
     {
-        Schema::create('grounds');
+        Schema::dropIfExists('grounds');
     }
 }

@@ -16,10 +16,10 @@ class CreateLevelNotificationSettingTable extends Migration
         Schema::create('level_notification_setting', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('notification_setting_id');
-            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('level_id');
 
-            $table->foreign('district_id')
-                ->references('id')->on('districts')
+            $table->foreign('level_id')
+                ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 
@@ -42,6 +42,6 @@ class CreateLevelNotificationSettingTable extends Migration
      */
     public function down()
     {
-         Schema::drop('level_notification_setting');
+        Schema::dropIfExists('level_notification_setting');
     }
 }

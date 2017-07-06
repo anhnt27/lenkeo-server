@@ -13,6 +13,7 @@ class PlayersTableSeeder extends Seeder
     {
         factory(App\Models\Player::class)->create([
             'email' => 'player1@lenkeo.com',
+            'is_admin' => true,
         ]);
 
         factory(App\Models\Player::class)->create([

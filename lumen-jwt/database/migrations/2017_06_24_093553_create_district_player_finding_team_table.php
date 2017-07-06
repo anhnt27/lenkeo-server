@@ -42,6 +42,6 @@ class CreateDistrictPlayerFindingTeamTable extends Migration
      */
     public function down()
     {
-        Schema::drop('district_player_finding_team');
+        Schema::dropIfExists('district_player_finding_team');
     }
 }
