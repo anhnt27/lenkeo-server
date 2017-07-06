@@ -55,7 +55,7 @@ $app->get('get-finding-team/{id}', ['middleware' => 'jwt.auth', 'uses' => 'Playe
 $app->get('get-notifications', ['middleware' => 'jwt.auth', 'uses' => 'NotificationsController@getNotifications']);
 
 //stadium
-$app->get('get-stadiums', ['middleware' => 'jwt.auth', 'uses' => 'StadiumsController@getStadiums']);
+$app->get('get-stadium-by-district/{districtId}', ['middleware' => 'jwt.auth', 'uses' => 'StadiumsController@getStadiumsByDistrict']);
 
 // notification setting
 $app->get('get-notification-setting/{type}', ['middleware' => 'jwt.auth', 'uses' => 'NotificationSettingsController@getNotificationSetting']);

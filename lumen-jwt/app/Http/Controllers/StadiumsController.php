@@ -15,7 +15,7 @@ class StadiumsController extends Controller
         $this->stadiums = $stadiums;
     }
 
-    public function getStadiums()
+    public function getStadiumsByDistrict(int $districtId)
     {
         return $this->stadiums->findAll();
     }

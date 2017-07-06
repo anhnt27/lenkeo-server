@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-s
+
 use Illuminate\Database\Eloquent\Model;
 
 class Stadium extends Model
@@ -17,7 +17,7 @@ class Stadium extends Model
     ];
 
     protected $table = 'stadiums';
-    
+
     protected $appends = [
         'district_name',
     ];
@@ -36,6 +36,4 @@ class Stadium extends Model
 
         return $this->district->name;
     }
-
-
 }
