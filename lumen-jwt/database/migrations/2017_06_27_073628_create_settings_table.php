@@ -19,8 +19,6 @@ class CreateSettingsTable extends Migration
 
             $table->boolean('is_receive_team_finding_match')->default(false);
             $table->boolean('is_receive_team_finding_player')->default(false);
-            $table->boolean('is_receive_team_finding_member')->default(false);
-            $table->boolean('is_receive_player_finding_match')->default(false);
             $table->boolean('is_receive_player_finding_team')->default(false);
                 
             $table->foreign('player_id')

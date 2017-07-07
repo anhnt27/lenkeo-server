@@ -8,6 +8,7 @@ use App\Models\Player;
 use GuzzleHttp\Client;
 use Tymon\JWTAuth\JWTAuth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Repositories\PlayerInterface;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
@@ -60,7 +61,6 @@ class PlayersController extends Controller
         return ['status' => 200, 'message' => 'RegistrationId was saved'];
     } 
 
-
     public function registration($email, $registrationId)
     {
         try {
@@ -77,5 +77,29 @@ class PlayersController extends Controller
         }
 
         return response()->json('fuck yeah!');
+    }
+
+    public function getPlayer()
+    {
+        $player = Auth::user();
+        if(! $player) {
+            return self::ERROR_RETURN;
+        }
+        return $player;
+    }
+
+    public function updatePlayer(Request $request)
+    {
+        $loggedInPlayer = Auth::user();
+
+        $id = $request->input('id');
+
+        if($loggedInPlayer->id !== $id) {
+            return self::ERROR_RETURN;
+        }
+
+        $player = $this->players->save($request->all());
+
+        return ['code' => 200];
     }
 }

@@ -68,5 +68,21 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\StadiumInterface',
             'App\Repositories\Eloquent\StadiumRepository'
         );
+        $this->app->bind(
+            'App\Repositories\SettingInterface',
+            'App\Repositories\Eloquent\SettingRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\TeamInterface',
+            'App\Repositories\Eloquent\TeamRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\JoinInterface',
+            'App\Repositories\Eloquent\JoinRepository'
+        );
+        $this->app->bind(
+            'App\Repositories\MatchInterface',
+            'App\Repositories\Eloquent\MatchRepository'
+        );
     }
 }

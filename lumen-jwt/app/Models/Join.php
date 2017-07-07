@@ -4,8 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Join extends Model
 {
+    const TYPE_JOIN_TEAM  = 1;
+    
+    const STATUS_SEND     = 0;
+    const STATUS_ACCEPTED = 1;
+    const STATUS_REJECTED = 2;
 
     /**
      * The attributes that are mass assignable.
@@ -15,12 +20,5 @@ class Team extends Model
     protected $fillable = [
         'name',
     ];
-
-    public function players()
-    {
-        return $this->hasMany('App\Models\Player');
-    }
-
-
 
 }

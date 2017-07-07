@@ -76,7 +76,7 @@ class AuthController extends Controller
             return response()->json(['token_absent' => $e->getMessage()], $e->getStatusCode());
         } 
 
-        return ['token' => $token, 'code' => 200];
+        return ['token' => $token, 'code' => 200, 'player' => $player];
     }
     public function verifyAccessToken($accessToken)
     {

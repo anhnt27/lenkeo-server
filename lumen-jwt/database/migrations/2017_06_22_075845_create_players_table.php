@@ -22,19 +22,31 @@ class CreatePlayersTable extends Migration
             $table->string('registration_id')->nullable()->unique();
 
             $table->boolean('is_admin')->default(false);
+            $table->boolean('is_belong_team')->default(false);
             $table->boolean('is_team_lead')->default(false);
             $table->boolean('is_finding_team')->default(false);
 
-            //default value;
-            $table->unsignedInteger('level_id')->nullable();
+            $table->boolean('is_receive_team_finding_match')->default(false);
+            $table->boolean('is_receive_team_finding_player')->default(false);
+            $table->boolean('is_receive_player_finding_team')->default(false);
+
+            $table->unsignedInteger('team_id')->nullable();
+            //default information 
             $table->unsignedInteger('city_id')->nullable();
             $table->unsignedInteger('district_id')->nullable();
+            $table->unsignedInteger('level_id')->nullable();
+            $table->unsignedInteger('position_id')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             
             $table->softDeletes();
 
+            $table->foreign('team_id')
+                ->references('id')->on('teams')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+                
             $table->foreign('district_id')
                 ->references('id')
                 ->on('districts')
@@ -50,6 +62,11 @@ class CreatePlayersTable extends Migration
                 ->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
+            $table->foreign('position_id')
+                ->references('id')
+                ->on('properties')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
 
         });
     }
@@ -61,6 +78,9 @@ class CreatePlayersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('players');
+        Schema::enableForeignKeyConstraints();
+        
     }
 }

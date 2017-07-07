@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Repositories\NotificationSettingInterface;
 
 class NotificationSettingsController extends Controller
@@ -21,7 +22,7 @@ class NotificationSettingsController extends Controller
         try {
             $player = Auth::user();
             if(! $player) {
-                return ['code' => 400, 'message' => 'Error'];
+                return self::ERROR_RETURN;
             }
 
             $notificationSetting = $player->notificationSettings()->where('type', $type)->first();
@@ -41,11 +42,9 @@ class NotificationSettingsController extends Controller
 
             return $results;
         } catch (Exception $e) {
-            info('There is an exception is add finding Players');
-            return;
+            Log::error($e);
+            return self::ERROR_RETURN;
         }
-
-        return ['code' => 200, 'message' => 'Notification Setting is saved successfully!'];
     }
     public function saveNotificationSetting(Request $request)
     {
@@ -53,7 +52,7 @@ class NotificationSettingsController extends Controller
 
             $player = Auth::user();
             if(! $player) {
-                return ['code' => 400, 'message' => 'Error'];
+                return self::ERROR_RETURN;
             }
             
             $type                = $request->input('type');
@@ -76,9 +75,9 @@ class NotificationSettingsController extends Controller
 
         } catch (Exception $e) {
             info('There is an exception is add finding Players');
-            return response()->json(['error'], $e->getStatusCode());
+            return self::ERROR_RETURN;
         }
 
-        return ['code' => 200, 'message' => 'Notification Setting is saved successfully!'];
+        return ['code' => self::CODE_SUCCESS, 'message' => 'Notification Setting is saved successfully!'];
     }
 }

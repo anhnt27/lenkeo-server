@@ -61,6 +61,16 @@ $app->get('get-stadium-by-district/{districtId}', ['middleware' => 'jwt.auth', '
 $app->get('get-notification-setting/{type}', ['middleware' => 'jwt.auth', 'uses' => 'NotificationSettingsController@getNotificationSetting']);
 $app->post('save-notification-setting', ['middleware' => 'jwt.auth', 'uses' => 'NotificationSettingsController@saveNotificationSetting']);
 
+// player
+$app->get('get-player', ['middleware' => 'jwt.auth', 'uses' => 'PlayersController@getPlayer']);
+$app->post('update-player', ['middleware' => 'jwt.auth', 'uses' => 'PlayersController@updatePlayer']);
+
+//team
+$app->post('create-team', ['middleware' => 'jwt.auth', 'uses' => 'TeamsController@create']);
+
+//join
+$app->post('join-team', ['middleware' => 'jwt.auth', 'uses' => 'JoinsController@addJoinTeam']);
+
 
 // TMP
 $app->get('/login/{email}/{name}', 'AuthController@login');

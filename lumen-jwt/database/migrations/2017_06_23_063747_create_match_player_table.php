@@ -25,7 +25,7 @@ class CreateMatchPlayerTable extends Migration
                 ->onDelete('NO ACTION');
 
             $table->foreign('match_id')
-                ->references('id')->on('matchs')
+                ->references('id')->on('matches')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
                 

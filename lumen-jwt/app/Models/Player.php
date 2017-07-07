@@ -53,8 +53,19 @@ class Player extends Model implements AuthenticatableContract, AuthorizableContr
     {
         return $this->hasMany('App\Models\TeamFindingPlayer');
     }
+
     public function notificationSettings()
     {
         return $this->hasMany('App\Models\NotificationSetting');
+    }
+
+    public function setting()
+    {
+        return $this->hasOne('App\Models\Setting');
+    }
+
+    public function team()
+    {
+        return $this->belongsTo('App\Models\Team');
     }
 }

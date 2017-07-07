@@ -4,15 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\CityInterface;
-use EllipseSynergie\ApiResponse\Contracts\Response;
 
 class CitiesController extends Controller
 {
     protected $cities;
 
-    public function __construct(Response $response, CityInterface $cities)
+    public function __construct(CityInterface $cities)
     {
-        $this->response = $response;
         $this->cities = $cities;
     }
 
@@ -24,7 +22,7 @@ class CitiesController extends Controller
         $districtsByCity = $cities->keyBy('id')->load('districts');
         $results['districts_by_city'] = $districtsByCity;
 
-        return $this->response->withArray(['results' => $results]);
+        return ['results' => $results];
     }    
     public function getDistrictsByCity($cityId)
     {
