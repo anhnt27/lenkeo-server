@@ -675,4 +675,11 @@ abstract class AbstractRepository implements AbstractInterface
     {
         return $this->messages;
     }
+
+    public function cleanUp($expiredDate)
+    {
+        $this->model
+            ->where('created_at', '<=', $expiredDate)
+            ->delete();
+    }
 }

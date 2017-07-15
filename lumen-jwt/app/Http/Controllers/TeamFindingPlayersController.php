@@ -53,11 +53,11 @@ class TeamFindingPlayersController  extends Controller
             $player = Auth::user();
             if( ! $player) {
                 Log::error('addFindingPlayer : Can not find Authenticated Player');
-                return ['code' => '500'];
+                return self::ERROR_RETURN;
             }
 
             $params = [
-                'player_id'      => 1,
+                'player_id'      => $player->id,
                 'message'        => $request->input('message'),
                 'address'        => $request->input('address'),
                 'level_id'       => $request->input('levelId'),
@@ -66,6 +66,7 @@ class TeamFindingPlayersController  extends Controller
                 'phone_number'   => $request->input('phoneNumber'),
                 'needing_number' => $request->input('needingNumber'),
                 'date'           => $request->input('matchDate'),
+                'expired_date'   => $request->input('expiredDate'),
                 'time'           => $request->input('matchHour'),
             ];
 
@@ -74,15 +75,15 @@ class TeamFindingPlayersController  extends Controller
             $this->sendNotification($teamFindingPlayer);
         } catch (Exception $e) {
             Log::error('addFindingPlayer', compact('e'));
-            return ['code' => '500'];
+            return self::ERROR_RETURN;
         }
 
-        return ['code' => '200'];
+        return self::SUCCESS_RETURN;
     }
 
     public function sendNotification($teamFindingPlayer)
     {
-        $players = $this->players->findAll();
+        $players = $this->players->getFindingPlayerReceivers($teamFindingPlayer);
         Notification::send($players, new NewTeamFindingPlayer($teamFindingPlayer));
     }
    

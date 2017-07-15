@@ -17,7 +17,7 @@ class CreateMatchPlayerTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('match_id');
             $table->unsignedInteger('player_id');
-            $table->tinyInteger('confirm_status')->nullable();
+            $table->tinyInteger('confirm_status')->nullable()->default(-1);
 
             $table->foreign('player_id')
                 ->references('id')->on('players')

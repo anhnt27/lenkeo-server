@@ -28,6 +28,7 @@ class CreateTeamFindingMatchesTable extends Migration
             $table->string('time')->nullable();
             $table->string('phone_number')->nullable();
             $table->date('date')->nullable();
+            $table->date('expired_date')->nullable();
 
             $table->string('message')->nullable();
             $table->string('fb_name')->nullable();

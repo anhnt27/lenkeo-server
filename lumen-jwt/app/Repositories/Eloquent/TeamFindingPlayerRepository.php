@@ -33,6 +33,8 @@ class TeamFindingPlayerRepository extends AbstractRepository implements TeamFind
         if($levelIds) {
             $query = $query->whereIn('level_id', $levelIds);
         }
-        return $query->get();
+        return $query->orderBy('team_finding_players.created_at', 'desc')->get();
     }
+
+    
 }

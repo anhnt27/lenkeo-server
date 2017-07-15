@@ -31,6 +31,8 @@ class TeamFindingMatchRepository extends AbstractRepository implements TeamFindi
             $query = $query->whereIn('level_id', $levelIds);
         }
         
-        return $query->select('team_finding_matches.*')->distinct()->get();
+        return $query->select('team_finding_matches.*')->orderBy('team_finding_matches.created_at', 'desc')->distinct()->get();
     }
+
+    
 }

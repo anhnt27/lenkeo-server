@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use ApiResponse;
-use App\Repositories\NotificationInterface;
 use Auth;
+use Carbon\Carbon;
+use ApiResponse;
+use Illuminate\Http\Request;
+use App\Repositories\NotificationInterface;
 
 class NotificationsController extends Controller
 {
@@ -25,13 +27,33 @@ class NotificationsController extends Controller
 
     public function getNotifications() 
     {
-        $user = Auth::user();
+        $player = Auth::user();
 
-        $notifications = $user->notifications;
+        $notifications = $player->notifications;
 
         return $notifications;
     }
 
+    public function countUnreadNotifications() 
+    {
+        $player = Auth::user();
+        
+        if(!$player) return 0;
+
+        $count = $this->notifications->countUnreadNotifications($player->id);
+
+        return $count;
+    }
+
+    public function updateNotificationIsRead(Request $request)
+    {
+        $id = $request->input('id');
+        $notification = $this->notifications->findById($id);
+
+        // return $notification;
+        $notification->markAsRead();
+        return self::SUCCESS_RETURN;
+    }
 
     /**
      * Get all notifications belongs to User

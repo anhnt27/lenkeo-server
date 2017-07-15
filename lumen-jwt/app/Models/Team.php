@@ -21,6 +21,13 @@ class Team extends Model
         return $this->hasMany('App\Models\Player');
     }
 
+    public function matches()
+    {
+        return $this->hasMany('App\Models\Match');
+    }
 
-
+    public function joins()
+    {
+        return $this->hasMany('App\Models\Join');
+    }
 }

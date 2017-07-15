@@ -35,6 +35,8 @@ class PlayerFindingTeamRepository extends AbstractRepository implements PlayerFi
             $query = $query->whereIn('level_id', $levelIds);
         }
         
-        return $query->select('player_finding_teams.*')->distinct()->get();
+        return $query->select('player_finding_teams.*')->orderBy('player_finding_teams.created_at', 'desc')->distinct()->get();
     }
+
+
 }

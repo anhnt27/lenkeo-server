@@ -24,6 +24,7 @@ class CreateTeamFindingPlayersTable extends Migration
 
             $table->string('time')->nullable();
             $table->date('date')->nullable();
+            $table->date('expired_date')->nullable();
             $table->string('phone_number')->nullable();
 
             $table->tinyInteger('needing_number')->default(1);

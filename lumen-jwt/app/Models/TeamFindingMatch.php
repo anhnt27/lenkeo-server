@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 class TeamFindingMatch extends Model
 {
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +21,8 @@ class TeamFindingMatch extends Model
         'district_name',
         'player_name',
         'position_name',
-        'level_name'
+        'level_name',
+        'team_id'
     ];
 
     //relationships
@@ -72,5 +74,11 @@ class TeamFindingMatch extends Model
             return '';
 
         return $this->level->value;
+    }
+    public function getTeamIdAttribute()
+    {
+        if(! $this->player || ! $this->player->team)
+            return null;
+        return $this->player->team->id;
     }
 }

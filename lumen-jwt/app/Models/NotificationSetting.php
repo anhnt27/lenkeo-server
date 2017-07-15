@@ -10,6 +10,9 @@ class NotificationSetting extends Model
     CONST TYPE_FINDING_TEAM   = 2;
     CONST TYPE_FINDING_MATCH  = 3;
 
+    CONST TYPE_JOIN_TEAM      = 4;
+    CONST TYPE_INVITE_MEMBER  = 5;
+
     /**
      * The attributes that are mass assignable.
      *

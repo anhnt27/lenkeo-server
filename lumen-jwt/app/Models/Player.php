@@ -68,4 +68,14 @@ class Player extends Model implements AuthenticatableContract, AuthorizableContr
     {
         return $this->belongsTo('App\Models\Team');
     }
+
+    public function matches()
+    {
+        return $this->belongsToMany('App\Models\Match')->withPivot('confirm_status');
+    }
+
+    public function joins()
+    {
+        return $this->hasOne('App\Models\Join');
+    }
 }

@@ -33,14 +33,6 @@ class Notification extends BaseModel
     ];
 
     /**
-     * @var array
-     */
-    protected $appends = [
-        'msg',
-        'message'
-    ];
-
-    /**
      * The attributes that should be casted to native types.
      *
      * @var array

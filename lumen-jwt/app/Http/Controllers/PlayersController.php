@@ -88,6 +88,16 @@ class PlayersController extends Controller
         return $player;
     }
 
+    public function getPlayerById($id)
+    {
+        $player = Auth::user();
+        if(! $player) {
+            return self::ERROR_RETURN;
+        }
+
+        return $this->players->findById($id);
+    }
+
     public function updatePlayer(Request $request)
     {
         $loggedInPlayer = Auth::user();

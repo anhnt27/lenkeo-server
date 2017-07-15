@@ -16,11 +16,11 @@ class CreateMatchesTable extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('team_id');
-            $table->string('stadium_name');
-            $table->string('note')->nullable();
+            $table->string('address');
             $table->time('from');
-            $table->time('to');
-            $table->date('date');
+            $table->time('to')->nullable();
+            $table->date('match_date');
+            $table->string('message')->nullable();
 
             $table->foreign('team_id')
                 ->references('id')->on('teams')

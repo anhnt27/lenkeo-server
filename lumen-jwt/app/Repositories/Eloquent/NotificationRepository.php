@@ -26,8 +26,12 @@ class NotificationRepository extends AbstractRepository implements NotificationI
         parent::__construct($resource);
     }
 
-    public function getNotifications($user) 
+    public function countUnreadNotifications(int $playerId) 
     {
-        // return this-
+        return $this->model
+            ->where('notifiable_id', $playerId)
+            ->whereNull('read_at')
+            ->count();
     }
+
 }

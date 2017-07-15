@@ -17,7 +17,12 @@ class CreateTeamsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('phone_number')->nullable()->unique();
+
+            $table->unsignedInteger('city_id')->nullable();
             $table->unsignedInteger('district_id')->nullable();
+            $table->unsignedInteger('level_id')->nullable(); 
+
+
             $table->string('usual_match_time')->nullable();
             $table->tinyInteger('number_of_member')->nullable();
             $table->tinyInteger('average_age')->nullable();
@@ -25,9 +30,18 @@ class CreateTeamsTable extends Migration
 
             $table->boolean('is_finding_player')->default(false);
 
+            $table->foreign('city_id')
+                ->references('id')
+                ->on('cities')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
             $table->foreign('district_id')
                 ->references('id')
                 ->on('districts')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('level_id')
+                ->references('id')->on('properties')
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
 

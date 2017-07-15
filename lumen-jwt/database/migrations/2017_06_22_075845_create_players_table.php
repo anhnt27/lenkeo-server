@@ -22,7 +22,6 @@ class CreatePlayersTable extends Migration
             $table->string('registration_id')->nullable()->unique();
 
             $table->boolean('is_admin')->default(false);
-            $table->boolean('is_belong_team')->default(false);
             $table->boolean('is_team_lead')->default(false);
             $table->boolean('is_finding_team')->default(false);
 

@@ -17,4 +17,11 @@ class StadiumRepository extends AbstractRepository implements StadiumInterface
     {
         parent::__construct($resource);
     }
+
+    public function getStadiumsByDistrict($districtId)
+    {
+        return $this->model
+                ->where('district_id', $districtId)
+                ->get();
+    }
 }
