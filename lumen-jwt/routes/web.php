@@ -15,7 +15,7 @@ $app->get('/', function () use ($app) {
     return $app->version();
 });
 
-$app->post('/auth/login', 'AuthController@loginPost');
+$app->post('/auth/login', 'AuthController@login');
 
 $app->get('foo/{id}', function ($id) {
     info('this foo is callled');
@@ -90,7 +90,3 @@ $app->post('create-match', ['middleware'       => 'jwt.auth', 'uses' => 'Matches
 $app->get('get-matches', ['middleware'         => 'jwt.auth', 'uses' => 'MatchesController@getMatches']);
 $app->get('get-match/{id}', ['middleware'      => 'jwt.auth', 'uses' => 'MatchesController@getMatchById']);
 $app->post('confirm-join-match', ['middleware' => 'jwt.auth', 'uses' => 'MatchesController@confirmJoinMatch']);
-
-// TMP
-$app->get('/login/{email}/{name}', 'AuthController@login');
-$app->get('/registration/{email}/{registrationId}', 'PlayersController@registration');

@@ -34,15 +34,17 @@ class SendFireBaseNotification
         $notification = $event->notification;
 
         if(! $notifiable  || !$notification) {  
+            info('notifiable or notification are not exist');
             return;  
         }
 
         if(! $notifiable->registration_id) {
+            info('notifiable don not have registration id');
             return ;
         }
 
         $title = 'Len Keo';
-        $msg = $notification->message;
+        $msg = $notification->getReplacedMessage();
 
         $this->send($title, $msg, $notifiable->registration_id);
 
@@ -50,6 +52,7 @@ class SendFireBaseNotification
 
     public function send($title, $message, $registrationId) 
     {
+        info('sending fire base notification to: '. $registrationId);
         $client = new Client(['headers' => ['Content-Type' => 'application/json', 'Authorization' => 'key=AIzaSyAAdhPer0nGT0tVIpOqWY2s5f56x_hXUa0']]);
 
         $params = [

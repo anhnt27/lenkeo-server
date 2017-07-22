@@ -47,9 +47,16 @@ class JoinTeam extends BaseNotification
         return $this->getMessageData();
     }
 
-    public function getMessageData()
+    public function getReplacedMessage()
     {
         $msg = str_replace('player_name', $this->join->player_name, $this->message);
+        return $msg;
+    }
+
+    public function getMessageData()
+    {
+        $msg = $this->getReplacedMessage();
+
         return [
             'params'   => [
                 'id'        => $this->join->id,

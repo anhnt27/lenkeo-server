@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent;
 
 use DB;
+use Auth;
 use App\Models\Player;
 use App\Models\NotificationSetting;
 use App\Repositories\PlayerInterface;
@@ -22,6 +23,8 @@ class PlayerRepository extends AbstractRepository implements PlayerInterface
 
     public function getFindingTeamReceivers($playerFindingTeam)
     {
+        $logginedUserId = Auth::id();
+
         $levelId     = $playerFindingTeam->level_id;
         $positionId  = $playerFindingTeam->position_id;
         $districtIds = $playerFindingTeam->districts->pluck('id')->toArray();
@@ -36,6 +39,7 @@ class PlayerRepository extends AbstractRepository implements PlayerInterface
             ->where('level_notification_setting.level_id', $levelId)
             ->where('position_notification_setting.position_id', $positionId)
             ->whereIn('district_notification_setting.district_id', $districtIds)
+            ->where('players.id', '<>', $logginedUserId)
             ->select('players.*')
             ->distinct()
             ->get();
@@ -43,27 +47,33 @@ class PlayerRepository extends AbstractRepository implements PlayerInterface
 
     public function getFindingMatchReceivers($teamFindingMatch)
     {
+        $logginedUserId = Auth::id();
+
         $levelId     = $teamFindingMatch->level_id;
-        $positionId  = $teamFindingMatch->position_id;
         $districtIds = $teamFindingMatch->districts->pluck('id')->toArray();
 
-        return $this->model
+        // dd($levelId, $districtIds );
+        $query = $this->model
             ->join('notification_settings', 'notification_settings.player_id', 'players.id')
             ->join('level_notification_setting', 'level_notification_setting.notification_setting_id', 'notification_settings.id')
-            ->join('position_notification_setting', 'position_notification_setting.notification_setting_id', 'notification_settings.id')
             ->join('district_notification_setting', 'district_notification_setting.notification_setting_id', 'notification_settings.id')
             ->where('players.is_receive_team_finding_match', 1)
             ->where('notification_settings.type', NotificationSetting::TYPE_FINDING_MATCH)
             ->where('level_notification_setting.level_id', $levelId)
-            ->where('position_notification_setting.position_id', $positionId)
             ->whereIn('district_notification_setting.district_id', $districtIds)
+            ->where('players.id', '<>', $logginedUserId)
             ->select('players.*')
-            ->distinct()
-            ->get();
+            ->distinct();
+
+        info($query->toSql());
+            
+        return $query->get();
     }
 
     public function getFindingPlayerReceivers($teamFindingPlayer)
     {
+        $logginedUserId = Auth::id();
+
         $levelId    = $teamFindingPlayer->level_id;
         $positionId = $teamFindingPlayer->position_id;
         $districtId = $teamFindingPlayer->district_id;
@@ -78,6 +88,7 @@ class PlayerRepository extends AbstractRepository implements PlayerInterface
             ->where('level_notification_setting.level_id', $levelId)
             ->where('position_notification_setting.position_id', $positionId)
             ->where('district_notification_setting.district_id', $districtId)
+            ->where('players.id', '<>', $logginedUserId)
             ->select('players.*')
             ->distinct();
 

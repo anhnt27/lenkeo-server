@@ -24,6 +24,13 @@ class CreateStadiumsTable extends Migration
 
             $table->unsignedInteger('ground_type_id')->nullable();
 
+            $table->string('map_image_link')->nullable();
+            
+            $table->string('introduce_image_link_1')->nullable();
+            $table->string('introduce_image_link_2')->nullable();
+            $table->string('introduce_image_link_3')->nullable();
+
+
             $table->foreign('district_id')
                 ->references('id')
                 ->on('districts')

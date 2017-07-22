@@ -31,6 +31,9 @@ class CreateTeamFindingMatchesTable extends Migration
             $table->date('expired_date')->nullable();
 
             $table->string('message')->nullable();
+
+            $table->boolean('by_admin')->default(false);
+
             $table->string('fb_name')->nullable();
             $table->string('fb_page_to_find')->nullable();
 

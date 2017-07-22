@@ -61,6 +61,8 @@ class PlayerFindingTeam extends Model
         if(! $this->player)
             return '';
 
+        if( $this->player->is_admin) return $this->fb_name;
+
         return $this->player->name;
     }
 

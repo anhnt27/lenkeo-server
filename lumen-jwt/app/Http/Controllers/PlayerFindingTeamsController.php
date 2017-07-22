@@ -58,10 +58,12 @@ class PlayerFindingTeamsController  extends Controller
 
             $params = [
                 'player_id'      => $player->id,
+                'by_admin'       => $player->is_admin,
                 'message'        => $request->input('message'),
                 'level_id'       => $request->input('levelId'),
+                'date'           => $request->input('matchDate'),
                 'position_id'    => $request->input('positionId'),
-                'date'   => $request->input('matchDate'),
+                'fb_name'        => $request->input('contactName'),
                 'expired_date'   => $request->input('expiredDate'),
                 'phone_number'   => $request->input('phoneNumber'),
             ];

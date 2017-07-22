@@ -20,7 +20,7 @@ class NewTeamFindingPlayer extends BaseNotification
     /**
      * @var string
      */
-    public  $message = 'Quan district_name - player_name dang tim position_name';
+    public  $message = '[Quận district_name] - player_name đang tìm position_name';
     /**
      * @var \App\Models\TeamFindingPlayer
      */
@@ -48,11 +48,19 @@ class NewTeamFindingPlayer extends BaseNotification
         return $this->getMessageData();
     }
 
-    public function getMessageData()
+    public function getReplacedMessage()
     {
         $msg = str_replace('district_name', $this->teamFindingPlayer->district_name, $this->message);
         $msg = str_replace('position_name', $this->teamFindingPlayer->position_name, $msg);
         $msg = str_replace('player_name', $this->teamFindingPlayer->player_name, $msg);
+
+        return $msg;
+    }
+
+    public function getMessageData()
+    {
+        $msg = $this->getReplacedMessage();
+        
         return [
             'params'   => [
                 'id'            => $this->teamFindingPlayer->id,

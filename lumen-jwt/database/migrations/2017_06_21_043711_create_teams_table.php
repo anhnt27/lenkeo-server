@@ -30,6 +30,9 @@ class CreateTeamsTable extends Migration
 
             $table->boolean('is_finding_player')->default(false);
 
+            $table->string('introduce_image_link')->nullable();
+
+            
             $table->foreign('city_id')
                 ->references('id')
                 ->on('cities')

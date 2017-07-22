@@ -21,7 +21,7 @@ class PropertiesTableSeeder extends Seeder
             ['name' => 'ground_type', 'order' => 3, 'value' => 'Sân 11'],
 
             ['name' => 'level', 'order' => 1, 'value' => 'Tốt'],
-            ['name' => 'level', 'order' => 2, 'value' => 'Trung Bình'],
+            ['name' => 'level', 'order' => 2, 'value' => 'Trung Bình, Khá'],
             ['name' => 'level', 'order' => 3, 'value' => 'Yếu'],
         ];
         

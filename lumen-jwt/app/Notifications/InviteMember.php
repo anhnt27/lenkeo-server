@@ -47,9 +47,16 @@ class InviteMember extends BaseNotification
         return $this->getMessageData();
     }
 
-    public function getMessageData()
+    public function getReplacedMessage()
     {
         $msg = str_replace('team_name', $this->join->team_name, $this->message);
+        return $msg;
+    }
+
+    public function getMessageData()
+    {
+        $msg = $this->getReplacedMessage();
+        
         return [
             'params'   => [
                 'id'        => $this->join->id,

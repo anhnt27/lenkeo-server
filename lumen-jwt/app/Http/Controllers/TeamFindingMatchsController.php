@@ -55,7 +55,9 @@ class TeamFindingMatchsController  extends Controller
 
             $params = [
                 'player_id'      => $player->id,
+                'by_admin'       => $player->is_admin,
                 'message'        => $request->input('message'),
+                'fb_name'        => $request->input('contactName'),
                 'address'        => $request->input('address'),
                 'level_id'       => $request->input('levelId'),
                 'phone_number'   => $request->input('phoneNumber'),
@@ -88,6 +90,8 @@ class TeamFindingMatchsController  extends Controller
     public function sendNotification($teamFindingMatch)
     {
         $players = $this->players->getFindingMatchReceivers($teamFindingMatch);
+        info('sending notification. TeamFindingMatch, number of receiver:' . count($players));
+        // dd($players);
         Notification::send($players, new NewTeamFindingMatch($teamFindingMatch));
     }
    

@@ -36,6 +36,9 @@ class CreatePlayersTable extends Migration
             $table->unsignedInteger('level_id')->nullable();
             $table->unsignedInteger('position_id')->nullable();
 
+            $table->string('profile_image_link')->nullable();
+            $table->string('introduce_image_link')->nullable();
+
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
             

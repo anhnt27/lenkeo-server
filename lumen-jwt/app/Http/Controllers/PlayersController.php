@@ -61,24 +61,6 @@ class PlayersController extends Controller
         return ['status' => 200, 'message' => 'RegistrationId was saved'];
     } 
 
-    public function registration($email, $registrationId)
-    {
-        try {
-            $player = $this->players->findOneByFields(['email' => $email]);
-
-            if(!$player) {
-                return response()->json(['invalid_user']);
-            }
-
-            // update player gistration id;
-            $player->updateRegistrationId($registrationId);
-        } catch(Exception $e) {
-            info($e);
-        }
-
-        return response()->json('fuck yeah!');
-    }
-
     public function getPlayer()
     {
         $player = Auth::user();
