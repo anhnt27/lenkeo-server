@@ -20,11 +20,13 @@ class TeamFindingPlayer extends Model
     ];
 
     protected $appends = [
-        'district_name',
-        'player_name',
-        'position_name',
-        'level_name',
         'team_id',
+        'city_name',
+        'level_name',
+        'player_name',
+        'district_name',
+        'position_name',
+        'ground_type_name',
     ];
 
     //relationships
@@ -47,8 +49,22 @@ class TeamFindingPlayer extends Model
     {
         return $this->belongsTo('App\Models\Property', 'level_id', 'id');
     }
+    public function groundTypes()
+    {
+        return $this->belongsTo('App\Models\Property', 'ground_type_id', 'id');
+    }
 
     // append attributes handlers
+    public function getCityNameAttribute()
+    {
+        if(! $this->districts)
+            return '';
+
+        if(! $this->districts->first()->city)
+            return '';
+
+        return $this->districts->first()->city->name;
+    }
     public function getDistrictNameAttribute()
     {
         if(! $this->district)
@@ -79,6 +95,14 @@ class TeamFindingPlayer extends Model
 
         return $this->level->value;
     }
+    public function getGroundTypeNameAttribute()
+    {
+        if(! $this->groundTypes)
+            return '';
+
+        return $this->groundTypes->value;
+    }
+
     public function getTeamIdAttribute()
     {
         if(! $this->player || ! $this->player->team)

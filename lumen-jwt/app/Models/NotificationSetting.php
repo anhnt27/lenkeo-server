@@ -38,4 +38,9 @@ class NotificationSetting extends Model
     {
         return $this->belongsToMany('App\Models\Property','level_notification_setting', 'notification_setting_id', 'level_id');
     }
+
+    public function groundTypes()
+    {
+        return $this->belongsToMany('App\Models\Property','ground_type_notification_setting', 'notification_setting_id', 'ground_type_id');
+    }
 }

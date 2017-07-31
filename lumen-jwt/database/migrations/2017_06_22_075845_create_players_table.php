@@ -35,9 +35,14 @@ class CreatePlayersTable extends Migration
             $table->unsignedInteger('district_id')->nullable();
             $table->unsignedInteger('level_id')->nullable();
             $table->unsignedInteger('position_id')->nullable();
+            $table->unsignedInteger('ground_type_id')->nullable();
 
             $table->string('profile_image_link')->nullable();
             $table->string('introduce_image_link')->nullable();
+
+            $table->unsignedInteger('age')->nullable();
+            $table->string('job')->nullable();
+            $table->string('message')->nullable();
 
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -60,6 +65,11 @@ class CreatePlayersTable extends Migration
                 ->onUpdate('NO ACTION')
                 ->onDelete('NO ACTION');
             $table->foreign('level_id')
+                ->references('id')
+                ->on('properties')
+                ->onUpdate('NO ACTION')
+                ->onDelete('NO ACTION');
+            $table->foreign('ground_type_id')
                 ->references('id')
                 ->on('properties')
                 ->onUpdate('NO ACTION')

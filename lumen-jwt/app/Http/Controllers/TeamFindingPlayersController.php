@@ -66,6 +66,7 @@ class TeamFindingPlayersController  extends Controller
                 'position_id'    => $request->input('positionId'),
                 'fb_name'        => $request->input('contactName'),
                 'phone_number'   => $request->input('phoneNumber'),
+                'ground_type_id' => $request->input('groundTypeId'),
                 'needing_number' => $request->input('needingNumber'),
                 'date'           => $request->input('matchDate'),
                 'expired_date'   => $request->input('expiredDate'),

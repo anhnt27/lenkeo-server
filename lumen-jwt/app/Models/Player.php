@@ -23,6 +23,52 @@ class Player extends Model implements AuthenticatableContract, AuthorizableContr
         'name', 'email',
     ];
     
+    protected $appends = [
+        'city_name',
+        'level_name',
+        'position_name',
+        'district_name',
+        'ground_type_name',
+    ];
+
+    // appends attribute
+    public function getCityNameAttribute()
+    {
+        if(! $this->city)
+            return '';
+
+        return $this->city->name;
+    }
+    public function getDistrictNameAttribute()
+    {
+        if(! $this->district)
+            return '';
+        return $this->district->name;
+    }
+    public function getPositionNameAttribute()
+    {
+        if(! $this->position)
+            return '';
+
+        return $this->position->value;
+    }
+    
+    public function getLevelNameAttribute()
+    {
+        if(! $this->level)
+            return '';
+
+        return $this->level->value;
+    }
+    public function getGroundTypeNameAttribute()
+    {
+        if(! $this->groundType)
+            return '';
+
+        return $this->groundType->value;
+    }
+
+
     public function updateRegistrationId($registrationId)
     {
         $this->registration_id = $registrationId;
@@ -77,5 +123,30 @@ class Player extends Model implements AuthenticatableContract, AuthorizableContr
     public function joins()
     {
         return $this->hasOne('App\Models\Join');
+    }
+    
+    public function district()
+    {
+        return $this->belongsTo('App\Models\District');
+    }
+    
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo('App\Models\Property', 'position_id', 'id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo('App\Models\Property', 'level_id', 'id');
+    }
+
+    public function groundType()
+    {
+        return $this->belongsTo('App\Models\Property', 'ground_type_id', 'id');
     }
 }

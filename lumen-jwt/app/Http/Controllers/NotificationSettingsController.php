@@ -31,14 +31,16 @@ class NotificationSettingsController extends Controller
                 $notificationSetting = $this->notificationSettings->save(['player_id' => $player->id, 'type' => $type]);
             }
 
-            $levelIds    = $notificationSetting->levels->pluck('id')->toArray();
-            $districtIds = $notificationSetting->districts->pluck('id')->toArray();
-            $positionIds = $notificationSetting->positions->pluck('id')->toArray();
-
-            $results['levelIds']    = $levelIds;
-            $results['districtIds'] = $districtIds;
-            $results['positionIds'] = $positionIds;
-            $results['cityId']      = $notificationSetting->city_id;
+            $levelIds      = $notificationSetting->levels->pluck('id')->toArray();
+            $districtIds   = $notificationSetting->districts->pluck('id')->toArray();
+            $positionIds   = $notificationSetting->positions->pluck('id')->toArray();
+            $groundTypeIds = $notificationSetting->groundTypes->pluck('id')->toArray();
+            
+            $results['levelIds']      = $levelIds;
+            $results['districtIds']   = $districtIds;
+            $results['positionIds']   = $positionIds;
+            $results['groundTypeIds'] = $groundTypeIds;
+            $results['cityId']        = $notificationSetting->city_id;
 
             return $results;
         } catch (Exception $e) {
@@ -64,14 +66,17 @@ class NotificationSettingsController extends Controller
             }
 
             $notificationSetting = $this->notificationSettings->save(['id' => $notificationSetting->id, 'city_id' => $cityId]);
-
-            $levelIds    = $request->input('levelIds');
-            $districtIds = $request->input('districtIds');
-            $positionIds = $request->input('positionIds');
+            
+            $levelIds      = $request->input('levelIds');
+            $districtIds   = $request->input('districtIds');
+            $positionIds   = $request->input('positionIds');
+            $groundTypeIds = $request->input('groundTypeIds');
 
             $notificationSetting->levels()->sync($levelIds);
             $notificationSetting->districts()->sync($districtIds);
             $notificationSetting->positions()->sync($positionIds);
+            $notificationSetting->groundTypes()->sync($groundTypeIds);
+
 
         } catch (Exception $e) {
             info('There is an exception is add finding Players');

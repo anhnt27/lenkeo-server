@@ -16,6 +16,27 @@ class Team extends Model
         'name',
     ];
 
+    protected $appends = [
+        'city_name',
+        'district_name',
+    ];
+
+
+    // appends attribute
+    public function getCityNameAttribute()
+    {
+        if(! $this->city)
+            return '';
+
+        return $this->city->name;
+    }
+    public function getDistrictNameAttribute()
+    {
+        if(! $this->district)
+            return '';
+        return $this->district->name;
+    }
+
     public function players()
     {
         return $this->hasMany('App\Models\Player');
@@ -29,5 +50,15 @@ class Team extends Model
     public function joins()
     {
         return $this->hasMany('App\Models\Join');
+    }
+    
+    public function district()
+    {
+        return $this->belongsTo('App\Models\District');
+    }
+    
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
     }
 }

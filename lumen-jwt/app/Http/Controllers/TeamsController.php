@@ -33,14 +33,15 @@ class TeamsController extends Controller
             }
 
             $params = [
-                'name'              => $request->input('name'),
-                'city_id'           => $request->input('cityId'),
-                'message'           => $request->input('message'),
-                'average_age'       => $request->input('averageAge'),
-                'district_id'       => $request->input('districtId'),
-                'number_of_member'  => $request->input('numberOfMember'),
-                'usual_match_time'  => $request->input('usualMatchTime'),
-                'is_finding_member' => $request->input('isFindingMember'),
+                'name'                 => $request->input('name'),
+                'city_id'              => $request->input('cityId'),
+                'message'              => $request->input('message'),
+                'average_age'          => $request->input('averageAge'),
+                'district_id'          => $request->input('districtId'),
+                'number_of_member'     => $request->input('numberOfMember'),
+                'usual_match_time'     => $request->input('usualMatchTime'),
+                'introduce_image_link' => $request->input('introduceImage'),
+                'is_finding_member'    => $request->input('isFindingMember'),
             ];
 
             $team = $this->teams->save($params);
@@ -72,15 +73,16 @@ class TeamsController extends Controller
             if(! $player) return self::ERROR_RETURN;
 
             $params = [
-                'id'                => $request->input('id'),
-                'name'              => $request->input('name'),
-                'city_id'           => $request->input('cityId'),
-                'message'           => $request->input('message'),
-                'average_age'       => $request->input('averageAge'),
-                'district_id'       => $request->input('districtId'),
-                'number_of_member'  => $request->input('numberOfMember'),
-                'usual_match_time'  => $request->input('usualMatchTime'),
-                'is_finding_member' => $request->input('isFindingMember'),
+                'id'                   => $request->input('id'),
+                'name'                 => $request->input('name'),
+                'city_id'              => $request->input('cityId'),
+                'message'              => $request->input('message'),
+                'average_age'          => $request->input('averageAge'),
+                'district_id'          => $request->input('districtId'),
+                'usual_match_time'     => $request->input('usualMatchTime'),
+                'number_of_member'     => $request->input('numberOfMember'),
+                'introduce_image_link' => $request->input('introduceImage'),
+                'is_finding_member'    => $request->input('isFindingMember'),
             ];
 
             $team = $this->teams->save($params);

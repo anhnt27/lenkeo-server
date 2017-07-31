@@ -66,6 +66,7 @@ class PlayerFindingTeamsController  extends Controller
                 'fb_name'        => $request->input('contactName'),
                 'expired_date'   => $request->input('expiredDate'),
                 'phone_number'   => $request->input('phoneNumber'),
+                'ground_type_id' => $request->input('groundTypeId'),
             ];
             $playerFindingTeam = $this->playerFindingTeams->save($params);
 

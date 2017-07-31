@@ -50,8 +50,8 @@ class AuthController extends Controller
             $socialType = $request->input('socialType');
             $inputToken = $request->input('inputToken');
             
+            $isTesting = false;
             $isTesting = true;  
-            // $isTesting = false;
             if($isTesting) {
                 $player = $this->players->findOneByFields(['email' => $email]);
 
@@ -87,8 +87,10 @@ class AuthController extends Controller
 
             $player = $this->players->findOneByFields(['email' => $email]);
 
+            $isNewPlayer = false;
             // new player
             if(!$player) {
+                $isNewPlayer = true;
                 $name   = $request->input('name');
                 if(! $name) $name = ' ';
                 $player = $this->players->save(['email' => $email, 'name' => $name]);
@@ -107,7 +109,7 @@ class AuthController extends Controller
             return response()->json(['token_absent' => $e->getMessage()], $e->getStatusCode());
         } 
 
-        return ['token' => $token, 'code' => 200, 'player' => $player];
+        return ['token' => $token, 'code' => 200, 'player' => $player, 'isNewPlayer' => $isNewPlayer];
     }
 
     public function verifyAccessToken(int $socialType, $accessToken)

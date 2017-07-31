@@ -57,13 +57,14 @@ class TeamFindingMatchsController  extends Controller
                 'player_id'      => $player->id,
                 'by_admin'       => $player->is_admin,
                 'message'        => $request->input('message'),
-                'fb_name'        => $request->input('contactName'),
                 'address'        => $request->input('address'),
                 'level_id'       => $request->input('levelId'),
-                'phone_number'   => $request->input('phoneNumber'),
                 'date'           => $request->input('matchDate'),
-                'expired_date'   => $request->input('expiredDate'),
                 'time'           => $request->input('matchHour'),
+                'fb_name'        => $request->input('contactName'),
+                'phone_number'   => $request->input('phoneNumber'),
+                'expired_date'   => $request->input('expiredDate'),
+                'ground_type_id' => $request->input('groundTypeId'),
             ];
 
             $teamFindingMatch = $this->teamFindingMatchs->save($params);
